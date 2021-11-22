@@ -59,9 +59,12 @@ void updateAI(AI *ai, bitboard move)
 // ai -> the ai to print
 void printAI(AI *ai)
 {
+    // stats of current position
     double score = ai->tree->root->wins / (double)ai->tree->root->plays;
     printf("C  AI Win: %.2f%%\n", (1 - score) * 100);
     printf("C  Plays: %i\n", ai->tree->root->plays);
+
+    // stats for candidate moves
     for (int i = 0; i < ai->tree->root->node_count; i++)
     {
         node *node = ai->tree->root->next[i];
