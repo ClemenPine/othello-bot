@@ -41,12 +41,14 @@ void printBoard(board *b)
         return;
     }
 
-    printf("C       Current State:\n");
+    int b_count = __builtin_popcountll(b->pieces[0]);
+    int w_count = __builtin_popcountll(b->pieces[1]);
+    printf("C   B: %i, W: %i\n", b_count, w_count);
 
     // iterate over ranks and files
     for (int rank = 0; rank < 8; rank++)
     {
-        printf("C   ");
+        printf("C ");
         for (int file = 0; file < 8; file++)
         {
             int square = 8*rank + file;
@@ -81,14 +83,14 @@ void printBoard(board *b)
         printf("\n");
     }
     // file labels
-    printf("C       a b c d e f g h\n");
-    printf("C   \n");
+    printf("C     a b c d e f g h\n");
+    printf("C\n");
 
     // additional debugging info
-    printf("C     Bitboard Hex Codes:\n");
-    printf("C     Black - 0x%llx\n", b->pieces[0]);
-    printf("C     White - 0x%llx\n", b->pieces[1]);
-    printf("C     Moves - 0x%llx\n", b->moves);
+    // printf("C     Bitboard Hex Codes:\n");
+    // printf("C     Black - 0x%llx\n", b->pieces[0]);
+    // printf("C     White - 0x%llx\n", b->pieces[1]);
+    // printf("C     Moves - 0x%llx\n", b->moves);
 }
 
 // removes a board from memory

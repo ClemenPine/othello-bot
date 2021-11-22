@@ -3,11 +3,11 @@
 // creates an ai 
 // b -> the current game state
 // returns -> a pointer to an ai struct
-AI *createAI(board *b)
+AI *createAI(board *b, int seconds)
 {
     AI *ai = (AI *) malloc(sizeof(AI));
     ai->tree = createTree(b);
-    ai->seconds = 600;
+    ai->seconds = (double) seconds;
     // srand(time(NULL));
     return ai;
 }
@@ -25,10 +25,8 @@ void destroyAI(AI *ai)
 // returns -> a bitboard with a single bit set as the move
 bitboard calcBestMove(AI *ai)
 {
-    time_t start_time = time(NULL);
-
-    // play a set of rounds until there is no time left
-    while(time(NULL) - start_time < ai->seconds / 32 - 1)
+    clock_t start_time = clock();
+    while ((clock() - start_time) < (ai->seconds - 1) * CLOCKS_PER_SEC / 32)
     {
         doRound(ai->tree);
     }
@@ -61,5 +59,27 @@ void updateAI(AI *ai, bitboard move)
 // ai -> the ai to print
 void printAI(AI *ai)
 {
-    printTree(ai->tree);
+    double score = ((double)ai->tree->root->wins + 0.5*(double)ai->tree->root->draws) / (double)ai->tree->root->plays;
+    printf("C  AI Win: %.2f%%\n", (1 - score) * 100);
+    printf("C  Plays: %i\n", ai->tree->root->plays);
+    for (int i = 0; i < ai->tree->root->node_count; i++)
+    {
+        node *node = ai->tree->root->next[i];
+        double score = ((double)node->wins + 0.5*(double)node->draws) / (double)node->plays;
+
+        if (node->move)
+        {
+            // get move
+            int move = log(node->move) / log(2);
+            char file = 97 + move % 8;
+            int rank = move / 8 + 1;
+
+            printf("C   - %c%i -> %.2f%% of %i plays\n", file, rank, score * 100, node->plays);
+        }
+        else
+        {
+            printf("C   - _p -> %.2f%% of %i plays\n", score * 100, node->plays);
+        }
+    }
+    
 }

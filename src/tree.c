@@ -127,11 +127,11 @@ void printNodes(node *node, char *indent, int last, int depth)
         char file = 97 + move % 8;
         int rank = move / 8 + 1;
         
-        printf("C    %s+- %c%i %i/%i/%i|%i\n", indent, file, rank, node->wins, node->draws, node->plays-node->wins-node->draws, node->plays);
+        printf("C  %s+- %c%i %i/%i/%i|%i\n", indent, file, rank, node->wins, node->draws, node->plays-node->wins-node->draws, node->plays);
     }
     else
     {
-        printf("C    %s+- %i/%i/%i|%i\n", indent, node->wins, node->draws, node->plays-node->wins-node->draws, node->plays);
+        printf("C  %s+- %i/%i/%i|%i\n", indent, node->wins, node->draws, node->plays-node->wins-node->draws, node->plays);
     }
 
     // determine next indentation level

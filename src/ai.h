@@ -6,10 +6,10 @@
 typedef struct
 {
     tree *tree;
-    int seconds;
+    double seconds;
 } AI;
 
-AI *createAI(board *b);
+AI *createAI(board *b, int seconds);
 
 void destroyAI(AI *ai);
 

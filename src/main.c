@@ -52,8 +52,32 @@ bitboard processMove(board *b, AI *ai, char *str)
 // handle input and output for the program
 int main(int argc, char const *argv[])
 {
+    int seconds = 90;
+
+    // handle args
+    if (argc == 2 && atoi(argv[1]) != 0)
+    {
+        seconds = atoi(argv[1]);    
+    }
+    
     board *b = createBoard();
-    AI *ai = createAI(b);
+    AI *ai = createAI(b, seconds);
+
+    printf("C ╔═══╗ ╔╗ ╔╗      ╔╗ ╔╗         ╔══╗      ╔╗ \n");
+    printf("C ║╔═╗║╔╝╚╗║║      ║║ ║║         ║╔╗║     ╔╝╚╗\n");
+    printf("C ║║ ║║╚╗╔╝║╚═╗╔══╗║║ ║║ ╔══╗    ║╚╝╚╗╔══╗╚╗╔╝\n");
+    printf("C ║║ ║║ ║║ ║╔╗║║╔╗║║║ ║║ ║╔╗║    ║╔═╗║║╔╗║ ║║ \n");
+    printf("C ║╚═╝║ ║╚╗║║║║║║═╣║╚╗║╚╗║╚╝║    ║╚═╝║║╚╝║ ║╚╗\n");
+    printf("C ╚═══╝ ╚═╝╚╝╚╝╚══╝╚═╝╚═╝╚══╝    ╚═══╝╚══╝ ╚═╝\n");
+    printf("C\n");                 
+    printf("C board .. standard\n");
+    printf("C showMoves .. true\n");
+    printf("C showTree ... true\n");
+    printf("C showDebug .. true\n");
+    printf("C\n");
+    printf("C sec/move ... %.2f\n", (double) (seconds - 1) / 32.0);                                                     
+    printf("C Enter 'I B' or 'I W' to begin\n");
+
 
     while (1)
     {
@@ -71,15 +95,15 @@ int main(int argc, char const *argv[])
                 deleteBoard(b);
                 destroyAI(ai);
                 b = createBoard();
-                ai = createAI(b);
+                ai = createAI(b, seconds);
 
                 if (str[2] == 'B')
                 {
                     bitboard move = calcBestMove(ai);
                     makeMove(b, move);
 
-                    printAI(ai);
                     printBoard(b);
+                    printAI(ai);
                     printf("R B\n");
                     printf("B");
                     printMove(move);
@@ -103,8 +127,8 @@ int main(int argc, char const *argv[])
                     bitboard move = processMove(b, ai, str);
                     makeMove(b, move);
 
-                    printAI(ai);
                     printBoard(b);
+                    printAI(ai);
                     printf("W");
                     printMove(move);
 
@@ -120,8 +144,8 @@ int main(int argc, char const *argv[])
                     bitboard move = processMove(b, ai, str);
                     makeMove(b, move);
 
-                    printAI(ai);
                     printBoard(b);
+                    printAI(ai);
                     printf("B");
                     printMove(move);
 
