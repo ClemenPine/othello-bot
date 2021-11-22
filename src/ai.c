@@ -61,7 +61,7 @@ void printAI(AI *ai)
 {
     // stats of current position
     double score = ai->tree->root->wins / (double)ai->tree->root->plays;
-    printf("C  AI Win: %+.2f\n", 64*(1 - score) - 32);
+    printf("C  Eval Net: %+.2f\n", 2*(64*(1 - score) - 32));
     printf("C  Plays: %i\n", ai->tree->root->plays);
 
     // stats for candidate moves
@@ -77,7 +77,7 @@ void printAI(AI *ai)
             char file = 97 + move % 8;
             int rank = move / 8 + 1;
 
-            printf("C   - %c%i -> %+.2f of %i plays\n", file, rank, 64*score - 32, node->plays);
+            printf("C   - %c%i -> %+.2f of %i plays\n", file, rank, 2*(64*score - 32), node->plays);
         }
         else
         {
