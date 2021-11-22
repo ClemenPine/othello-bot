@@ -75,7 +75,7 @@ int main(int argc, char const *argv[])
     printf("C showTree ... true\n");
     printf("C showDebug .. true\n");
     printf("C\n");
-    printf("C sec/move ... %.2f\n", (double) (seconds - 0.01*seconds - 1) / 32.0);                                                     
+    printf("C sec/move ... %.2f\n", (double) (0.99*seconds - 1) / 32.0);                                                     
     printf("C Enter 'I B' or 'I W' to begin\n");
 
     while (1)
