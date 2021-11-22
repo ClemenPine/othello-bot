@@ -26,7 +26,7 @@ void destroyAI(AI *ai)
 bitboard calcBestMove(AI *ai)
 {
     clock_t start_time = clock();
-    while ((clock() - start_time) < (0.99*ai->seconds - 1) * CLOCKS_PER_SEC / 32)
+    while ((clock() - start_time) < (0.99*ai->seconds - 1) * CLOCKS_PER_SEC / 30)
     {
         doRound(ai->tree);
     }
