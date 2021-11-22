@@ -14,7 +14,6 @@ node *createNode(node *parent, board *b, bitboard move)
     nn->node_count = 0;
     nn->sim_count = 0;
     nn->wins = 0;
-    nn->draws = 0;
     nn->plays = 0;
 
     nn->b = b;
@@ -127,11 +126,11 @@ void printNodes(node *node, char *indent, int last, int depth)
         char file = 97 + move % 8;
         int rank = move / 8 + 1;
         
-        printf("C  %s+- %c%i %i/%i/%i|%i\n", indent, file, rank, node->wins, node->draws, node->plays-node->wins-node->draws, node->plays);
+        printf("C  %s+- %c%i %f/%f|%i\n", indent, file, rank, node->wins, node->plays-node->wins, node->plays);
     }
     else
     {
-        printf("C  %s+- %i/%i/%i|%i\n", indent, node->wins, node->draws, node->plays-node->wins-node->draws, node->plays);
+        printf("C  %s+- %f/%f|%i\n", indent, node->wins, node->plays-node->wins, node->plays);
     }
 
     // determine next indentation level
@@ -154,7 +153,7 @@ void doRound(tree *tr)
 {
     node *leaf = selectLeaf(tr);
     node *nn = expandTree(leaf);
-    int res = simulateTree(nn);
+    double res = simulateTree(nn);
     backpropagateTree(nn, res);
 }
 
@@ -180,7 +179,7 @@ node *selectLeaf(tree *tr)
             node *sub = curr->next[i];
 
             // UCT with draw calculation included
-            double exploit = ( (double)sub->wins + 0.5*(double)sub->draws )/ (double)sub->plays;
+            double exploit = sub->wins / (double)sub->plays;
             double explore = sqrt(log((double)curr->plays) / (double)sub->plays);
             double score = exploit + 1.414*explore;
 
@@ -247,7 +246,7 @@ node *expandTree(node *leaf)
 // done through standard random playouts
 // leaf -> the child node to start the playout from
 // returns -> the evaluation score
-int simulateTree(node *leaf)
+double simulateTree(node *leaf)
 {
     board *b = cloneBoard(leaf->b);
     
@@ -285,13 +284,14 @@ int simulateTree(node *leaf)
     deleteBoard(b);
 
     // determine winner
-    return count - 32;
+    double score = (double)count / 64;
+    return score;
 }
 
 // update the tree with the information from the simulation step
 // leaf -> the child node of the selected leaf
 // res -> the simulation function's score
-void backpropagateTree(node *leaf, int res)
+void backpropagateTree(node *leaf, double res)
 {
     // keep track of new simulations
     if (leaf->plays == 0)
@@ -303,19 +303,12 @@ void backpropagateTree(node *leaf, int res)
     node *curr = leaf;
     while (curr != NULL)
     {
-        // counts wins and draws
+        // count wins
         curr->plays++;
-        if (res >= 1)
-        {
-            curr->wins++;
-        }
-        else if (res == 0)
-        {
-            curr->draws++;
-        }
+        curr->wins += res;
 
         // alternate up the tree
-        res = -res;
+        res = 1 - res;
         curr = curr->parent;
     }
 }

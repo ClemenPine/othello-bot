@@ -59,13 +59,13 @@ void updateAI(AI *ai, bitboard move)
 // ai -> the ai to print
 void printAI(AI *ai)
 {
-    double score = ((double)ai->tree->root->wins + 0.5*(double)ai->tree->root->draws) / (double)ai->tree->root->plays;
+    double score = ai->tree->root->wins / (double)ai->tree->root->plays;
     printf("C  AI Win: %.2f%%\n", (1 - score) * 100);
     printf("C  Plays: %i\n", ai->tree->root->plays);
     for (int i = 0; i < ai->tree->root->node_count; i++)
     {
         node *node = ai->tree->root->next[i];
-        double score = ((double)node->wins + 0.5*(double)node->draws) / (double)node->plays;
+        double score = node->wins / (double)node->plays;
 
         if (node->move)
         {
@@ -81,5 +81,4 @@ void printAI(AI *ai)
             printf("C   - _p -> %.2f%% of %i plays\n", score * 100, node->plays);
         }
     }
-    
 }

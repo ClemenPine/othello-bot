@@ -17,8 +17,7 @@ typedef struct node
     struct node **next;
     int node_count;
     int sim_count;
-    int wins;
-    int draws;
+    double wins;
     int plays;
     board *b;
     bitboard move;
@@ -53,6 +52,6 @@ node *selectLeaf(tree *tr);
 
 node *expandTree(node *leaf);
 
-int simulateTree(node *leaf);
+double simulateTree(node *leaf);
 
-void backpropagateTree(node *leaf, int res);
+void backpropagateTree(node *leaf, double res);
