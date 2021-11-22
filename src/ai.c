@@ -8,7 +8,7 @@ AI *createAI(board *b, int seconds)
     AI *ai = (AI *) malloc(sizeof(AI));
     ai->tree = createTree(b);
     ai->seconds = (double) seconds;
-    // srand(time(NULL));
+    srand(time(NULL));
     return ai;
 }
 
