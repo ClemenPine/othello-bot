@@ -26,7 +26,7 @@ void destroyAI(AI *ai)
 bitboard calcBestMove(AI *ai)
 {
     clock_t start_time = clock();
-    while ((clock() - start_time) < (ai->seconds - 1) * CLOCKS_PER_SEC / 32)
+    while ((clock() - start_time) < (ai->seconds - 0.01*ai->seconds - 1) * CLOCKS_PER_SEC / 32)
     {
         doRound(ai->tree);
     }
@@ -61,7 +61,7 @@ void printAI(AI *ai)
 {
     // stats of current position
     double score = ai->tree->root->wins / (double)ai->tree->root->plays;
-    printf("C  Eval Net: %+.2f\n", 2*(64*(1 - score) - 32));
+    printf("C  Net: %+.2f\n", 2*(64*(1 - score) - 32));
     printf("C  Plays: %i\n", ai->tree->root->plays);
 
     // stats for candidate moves
