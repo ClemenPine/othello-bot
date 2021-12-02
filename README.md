@@ -3,7 +3,7 @@ This is a project for my intro to AI class to create an ai to play the game
 Othello. It implements Monte Carlo Tree Search as its method of choice for 
 optimal play.
 
-![Initial State](https://i.ibb.co/RT0d7tX/cover.png)
+![Initial State](https://i.ibb.co/THBFmmH/Screenshot-from-2021-12-02-17-02-17.png)
 
 ### Methodology
 Bitboards are used for representing the game states to speed up calculation as
