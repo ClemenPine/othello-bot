@@ -7,6 +7,7 @@ typedef struct
 {
     tree *tree;
     double seconds;
+    double time_spent;
 } AI;
 
 AI *createAI(board *b, int seconds);
@@ -18,3 +19,5 @@ bitboard calcBestMove(AI *ai);
 void updateAI(AI *ai, bitboard move);
 
 void printAI(AI *ai);
+
+double getTime(AI *ai);

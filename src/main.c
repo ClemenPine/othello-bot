@@ -1,6 +1,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <unistd.h>
+# include <locale.h>
 
 # include "ai.h"
 
@@ -52,6 +53,7 @@ bitboard processMove(board *b, AI *ai, char *str)
 // handle input and output for the program
 int main(int argc, char const *argv[])
 {
+    setlocale(LC_NUMERIC, "");
     int seconds = 90;
 
     // handle args
@@ -75,7 +77,7 @@ int main(int argc, char const *argv[])
     printf("C showTree ... true\n");
     printf("C showDebug .. true\n");
     printf("C\n");
-    printf("C sec/move ... %.2f\n", (double) (0.99*seconds - 1) / 30);                                                     
+    printf("C sec/move ... %.2f\n", (double)seconds / 30);                                                     
     printf("C Enter 'I B' or 'I W' to begin\n");
 
     while (1)
