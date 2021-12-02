@@ -145,6 +145,32 @@ void printNodes(node *node, char *indent, int last, int depth)
     }
 }
 
+// finds the max depth of the node's subtree recursively
+// curr -> root of subtree
+// returns -> the depth
+int getDepth(node *curr)
+{
+    if (curr->node_count == 0)
+    {
+        return 0;
+    }
+
+    // get move with highest number of plays
+    node *best_node = NULL;
+    int best_score;
+    for (int i = 0; i < curr->node_count; i++)
+    {
+        int score = curr->next[i]->plays;
+        if (!best_node || score > best_score)
+        {
+            best_node = curr->next[i];
+            best_score = score;
+        }
+    }
+
+    return getDepth(best_node) + 1;
+}
+
 // does one round of monte carlo tree search
 // tr -> the tree to perform the round on
 // 

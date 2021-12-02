@@ -45,6 +45,8 @@ void printTree(tree *tr);
 
 void printNodes(node *node, char *indent, int last, int depth);
 
+int getDepth(node *curr);
+
 // mtcs methods
 void doRound(tree *tr);
 
