@@ -8,7 +8,7 @@ CXXFLAGS = -std=c11 -Wall
 LDFLAGS = -lm
 
 # Makefile settings - Can be customized.
-APPNAME = klyons1Othello
+APPNAME = othello-bot
 EXT = .c
 SRCDIR = src
 OBJDIR = obj
