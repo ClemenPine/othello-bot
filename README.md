@@ -18,6 +18,20 @@ promising moves
 - tree.c handles MCTS
 - ai.c interfaces with tree.c
 
+# Usage
+
+`./othello-bot [seconds]`
+
+#### I [B/W]
+
+initializes the ai to play as either black or white
+
+#### B [column] [row]
+represents a move by black
+
+#### W [column] [row]
+represents a move by white
+
 # Sources
 
 ### General Links
